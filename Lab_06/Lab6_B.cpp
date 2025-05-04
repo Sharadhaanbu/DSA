@@ -1,0 +1,93 @@
+#include <iostream>
+
+using namespace std;
+
+class Node {
+public:
+    char data;
+    Node* next;
+
+    Node(char value) {
+        data = value;
+        next = nullptr;
+    }
+};
+
+class Stack {
+private:
+    Node* top;
+
+public:
+    Stack();        // Constructor
+    void push(char element);
+    void pop();
+    void peek();
+};
+
+// Constructor definition
+Stack::Stack() {
+    top = nullptr;
+}
+
+// Push operation definition
+void Stack::push(char element) {
+    Node* newNode = new Node(element);
+    newNode->next = top;
+    top = newNode;
+    cout << element << " pushed into the stack.\n";
+}
+
+// Pop operation definition
+void Stack::pop() {
+    if (top == nullptr) {
+        cout << "Stack Underflow! No elements to pop.\n";
+        return;
+    }
+    Node* temp = top;
+    cout << "Popped element: " << top->data << endl;
+    top = top->next;
+    delete temp;
+}
+
+// Peek operation definition
+void Stack::peek() {
+    if (top == nullptr) {
+        cout << "Stack is empty!\n";
+        return;
+    }
+    cout << "Top element: " << top->data << endl;
+}
+
+int main() {
+    Stack s;
+    int choice;
+    char element;
+
+    do {
+        cout << "\nStack Menu:\n";
+        cout << "1. Push\n2. Pop\n3. Peek\n4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter character to push: ";
+                cin >> element;
+                s.push(element);
+                break;
+            case 2:
+                s.pop();
+                break;
+            case 3:
+                s.peek();
+                break;
+            case 4:
+                cout << "Exiting program.\n";
+                break;
+            default:
+                cout << "Invalid choice! Try again.\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
